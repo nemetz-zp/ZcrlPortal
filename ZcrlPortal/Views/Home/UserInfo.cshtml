@@ -1,0 +1,114 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model UserProfile
+@{
+    ViewBag.Title = "Інформація про працівника";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="userBiographyContainer">
+
+    <div class="userPhotoContainer">
+        @if (!string.IsNullOrWhiteSpace(Model.PhotoFileName))
+        {
+            <img src="@Url.Content(MasterController.UPLOADPHOTO_DIR + @"\" + Model.PhotoFileName)" />
+        }
+        else
+        {
+            if (Model.Sex == UserSex.Male)
+            {
+                <img src="@Url.Content(@"~\UserPhotos\non_m.png")" />
+            }
+            else
+            {
+                <img src="@Url.Content(@"~\UserPhotos\non_f.png")" />
+            }
+        }
+    </div>
+
+    <div class="userDataContainer">
+        <span class="userMainData">
+            <h1>@Model.LastName @Model.FirstName @Model.MiddleName</h1>
+            <h2>@Model.JobTitle</h2>
+        </span>
+        <table>
+            <tr>
+                <th><img src="@Url.Content(@"~\Styles\img\map16.png")" /> Кабінет: </th>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(Model.WorkLocation))
+                    {
+                        @Model.WorkLocation
+                    }
+                    else
+                    {
+                        <i>Данні відсутні</i>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th><img src="@Url.Content(@"~\Styles\img\userTelephone16.png")" /> Робочий телефон: </th>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(Model.TelephoneNumber))
+                    {
+                        @Model.TelephoneNumber
+                    }
+                    else
+                    {
+                        <i>Данні відсутні</i>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th><img src="@Url.Content(@"~\Styles\img\diploma16.png")" /> Освіта: </th>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(Model.Education))
+                    {
+                        @Model.Education
+                    }
+                    else
+                    {
+                        <i>Данні відсутні</i>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th><img src="@Url.Content(@"~\Styles\img\email16.png")" /> Email: </th>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(Model.Email))
+                    {
+                        @Model.Email
+                    }
+                    else
+                    {
+                        <i>Данні відсутні</i>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th><img src="@Url.Content(@"~\Styles\img\www16.png")" /> Веб-сайт: </th>
+                <td>
+                    @if (!string.IsNullOrWhiteSpace(Model.SiteAddress))
+                    {
+                        @Model.SiteAddress
+                    }
+                    else
+                    {
+                        <i>Данні відсутні</i>
+                    }
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div style="clear: both;"></div>
+
+    @if (!string.IsNullOrWhiteSpace(Model.AboutMe))
+    {
+        <div class="userAboutContainer">
+            <h1>БІОГРАФІЯ</h1>
+            @MvcHtmlString.Create(Model.AboutMe)
+        </div>
+
+        <br /><br />
+    }
+</div>

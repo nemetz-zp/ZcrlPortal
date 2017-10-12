@@ -1,0 +1,40 @@
+﻿@using ZcrlPortal.ViewModels
+@model List<TenderItemGroup>
+@{
+    ViewBag.Title = "Державні закупівлі за " + Model.First().Items.First().Year.Value + " рік";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="tenderContainer">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["SuccessMessage"]))
+    {
+        <div class="successMessage">@TempData["SuccessMessage"]</div>
+    }
+    @foreach(var sectionName in Model)
+    {
+        <div class="tenderSection">
+            <h1>@sectionName.GroupName</h1>
+            @foreach (var tenderItem in sectionName.Items)
+            {
+                <a href="@Url.Action("Download", "Home", new { id = tenderItem.RelatedFile.Id })">@tenderItem.RelatedFile.DisplayName</a><br />
+                if (User.IsInRole("Administrators") || User.IsInRole("TenderGroup"))
+                {
+                    <span class="publication">
+					    <a href="@Url.Action("EditTenderItem", "Tender", new { id = tenderItem.Id })">Редагувати</a> | <a href="@Url.Action("DeleteTenderItem", "Tender", new { id = tenderItem.Id })" onclick="return confirm('Вы впевнені, що хочете видалити @tenderItem.RelatedFile.DisplayName?')">Видалити</a>
+			        </span>   
+                }
+                <span class="publication">
+                    Дата публікації: @tenderItem.PublicationDate.ToShortDateString()
+                </span>
+                if(tenderItem.RelatedFile.Author != null)
+                {
+                    <span class="publication">
+                        Опублікував(ла): <a href="@Url.Action("UserInfo", "Home", new { id = tenderItem.RelatedFile.Author.Id })">@tenderItem.RelatedFile.Author.LastName @tenderItem.RelatedFile.Author.FirstName.First().@tenderItem.RelatedFile.Author.MiddleName.First().</a>
+                    </span>   
+                }
+                <br />
+            }
+        </div>
+    }
+    <br /><br />
+</div>

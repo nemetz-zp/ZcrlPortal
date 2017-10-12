@@ -1,0 +1,322 @@
+.userBiographyContainer .editProfileContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.userBiographyContainer > *, .editProfileContainer > *
+{
+	vertical-align: top;
+}
+
+.userBiographyContainer .userPhotoContainer, .userBiographyContainer .userDataContainer, .userBiographyContainer .userAboutContainer
+{
+	float: left;
+	background: #ffffff;
+	padding: 8px;
+	margin: 0;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	width: 200px;
+	height: 223px;
+}
+
+.userBiographyContainer .userDataContainer 
+{
+	width: 475px;
+	margin-right: 0;
+    margin-left: 10px;
+}
+
+.userBiographyContainer .userPhotoContainer
+{
+    margin-left: 10px;
+}
+
+.userBiographyContainer .userPhotoContainer img
+{
+	width: 100%;
+	height: 100%;
+}
+
+.userBiographyContainer .userDataContainer  span.userMainData
+{
+	display: block;
+	margin: 0;
+	padding: 0;
+	padding-left: 10px;
+	border: 0;
+	border-left: 3px solid #27cf0b;
+	margin-bottom: 30px;
+}
+
+.userBiographyContainer .userDataContainer  span.userMainData h1, .userBiographyContainer .userDataContainer  span.userMainData h2
+{
+	font-size: 17px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+}
+
+.userBiographyContainer .userDataContainer  span.userMainData h2
+{
+	font-size: 13px;
+	font-weight: normal;
+	font-style: italic;
+}
+
+.userBiographyContainer .userDataContainer table th, .userBiographyContainer .userDataContainer table td
+{
+	font-size: 13px;
+}
+
+.userBiographyContainer .userDataContainer table th img
+{
+    vertical-align: middle;
+}
+
+.userBiographyContainer .userDataContainer table th
+{
+	width: 150px;
+    height: 20px;
+    vertical-align: middle;
+    text-align: left;
+}
+
+.userBiographyContainer .userAboutContainer
+{
+	display: block;
+    width: 695px;
+    padding-left: 10px;
+    padding-right: 10px;
+	float: none;
+	clear: both;
+	height: auto;
+	margin: 0;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.userBiographyContainer .userAboutContainer h1
+{
+	font-size: 23px;
+	font-weight: bold;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 5px;
+	text-align: center;
+}
+
+.editProfileContainer .userData, .editProfileContainer .userPhoto
+{
+    float: left;
+    height: auto;
+    background: #ffffff;
+    padding: 8px;
+    margin: 0;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+.editProfileContainer .userData
+{
+    float: left;
+    width: 400px;
+    background: #ffffff;
+    padding: 8px;
+    margin-left: 20px;
+}
+
+.editProfileContainer .userData .smart-green
+{
+    background: #ffffff;
+}
+
+.editProfileContainer .userPhoto
+{
+    width: 250px;
+    margin-left: 15px;
+    text-align: center;
+}
+
+.editProfileContainer .userPhoto img
+{
+    width: 250px;
+    height: 300px;
+}
+
+.editProfileContainer a
+{
+    color: #5945e1;
+    text-decoration: none;
+}
+
+.editProfileContainer .userData a
+{
+    color: #5945e1;
+    font-weight: bold;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.editProfileContainer a:hover, .editProfileContainer .userData a:hover
+{
+    color: #ff0000;
+    text-decoration: underline;
+}
+
+.editProfileContainer .userData table tr th.buttonRow
+{
+    text-align: center;
+}
+
+.editProfileContainer .userBio
+{
+    background: #ffffff;
+    margin: 0;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 8px;
+}
+
+.editProfileContainer .userBio h1, .editProfileContainer .userBio  
+{
+    text-align: center;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.editProfileContainer .userBio p 
+{
+   text-indent: 20px;
+   margin-bottom:10px;
+}
+
+.editProfileContainer td, .editProfileContainer th
+{
+    text-align: left;
+} 
+
+button
+{
+    margin-top: 5px;
+	margin-bottom: 5px;
+	background-color: #9DC45F;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-border-radius: 5px;
+	border: none;
+	padding: 10px 25px 10px 25px;
+	color: #FFF;
+	text-shadow: 1px 1px 1px #949494;
+}
+button:hover
+{
+    background-color:#80A24A;
+}
+
+/* CKEDITOR data container */
+..userBiographyContainer .userAboutContainer a, .userBiographyContainer .userAboutContainer a:visited, .userBiographyContainer .userAboutContainer a:active 
+{
+	color: #1e2eaa;
+    text-decoration: none;
+}
+.userBiographyContainer .userAboutContainer a:hover
+{
+	color: #9c1616;
+    text-decoration: underline;
+}
+
+.userBiographyContainer .userAboutContainer blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.userBiographyContainer .userAboutContainer ol, .userBiographyContainer .userAboutContainer ul, .userBiographyContainer .userAboutContainer dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+.userBiographyContainer .userAboutContainer .image-right
+{
+	border: 1px solid #ccc;
+	float: right;
+	margin-left: 15px;
+	padding: 5px;
+}
+.userBiographyContainer .userAboutContainer .image-left
+{
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+.userBiographyContainer .userAboutContainer a > img {
+	padding: 1px;
+	margin: 1px;
+	border: none;
+	outline: 1px solid #0782C1;
+}
+
+.userBiographyContainer .userAboutContainer p, .userBiographyContainer .userAboutContainer blockquote, .userBiographyContainer .userAboutContainer dl
+{
+	margin-bottom: 15px;
+}
+
+.userBiographyContainer .userAboutContainer figure
+{
+	text-align: center;
+	border: solid 1px #ccc;
+	border-radius: 2px;
+	background: rgba(0,0,0,0.05);
+	padding: 10px;
+	margin: 10px 20px;
+	display: inline-block;
+}
+
+.userBiographyContainer .userAboutContainer figure > figcaption
+{
+	text-align: center;
+	display: block; /* For IE8 */
+}
+
+.userBiographyContainer .userAboutContainer table { 
+	color: #333; /* Lighten up font color */
+	font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+	width: 640px; 
+	border-collapse: collapse; 
+	border-spacing: 0; 
+}
+
+.userBiographyContainer .userAboutContainer td, .userBiographyContainer .userAboutContainer th { 
+	border: 1px solid #CCC; 
+	height: 30px; 
+    text-align: center; 
+} /* Make cells a bit taller */
+
+.userBiographyContainer .userAboutContainer th {
+	background: #F3F3F3; /* Light grey background */
+	font-weight: bold; /* Make sure they're bold */
+}
+
+.userBiographyContainer .userAboutContainer td {
+	background: #FAFAFA; /* Lighter grey background */
+}
+
+.userBiographyContainer .userAboutContainer p {
+    text-align: justify;
+}
+

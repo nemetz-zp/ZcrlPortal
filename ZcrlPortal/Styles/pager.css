@@ -1,0 +1,45 @@
+.pager
+{
+	margin: 0;
+	margin-top: 20px;
+	list-style: outside none none;
+	text-align: center;
+}
+
+.pager li
+{
+	display: inline-block;
+}
+
+.pager li a
+{
+	display: inline-block;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #2daebf;
+	text-decoration: none;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	min-width: 18px;
+}
+
+.pager li a:hover
+{
+	background-color: #007d9a;
+}
+
+.pager li a.currentPage, .pager li a.currentPage:hover
+{
+	display: inline-block;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #b56108;
+	text-decoration: none;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	min-width: 15px;
+}

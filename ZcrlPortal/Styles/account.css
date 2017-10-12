@@ -1,0 +1,156 @@
+.userParthContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 5px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	text-align: center;
+}
+
+.userParthContainer a
+{
+	font-size: 15px;
+	color: #373737;
+	text-decoration: none;
+}
+
+.userParthContainer a:hover
+{
+	color: #2420e7;
+	text-decoration: underline;
+}
+
+.userParthContainer hr
+{
+	margin-top: 4px;
+	margin-bottom: 4px;
+	height: 1px;
+	border-top: 1px dotted black;
+}
+
+.userParthContainer h1
+{
+	text-align:center;
+	font-size: 15px;
+	font-weight: bold;
+	margin-bottom: 0;
+}
+
+.userParthContainer ul
+{
+	text-align: left;
+	margin: 0;
+	padding: 0;
+	padding-left: 18px;
+	list-style: url('ico/marker.png');
+}
+
+.userParthContainer ul li ul
+{
+	list-style: outside none none;
+}
+
+.userParthContainer ul li ul li
+{
+	font-size: 12px;
+}
+
+.userParthContainer .photoContainer
+{
+	display: inline-block;
+	background: white;
+	padding: 3px;
+	width: 100px;
+	height: 111px;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px
+	-webkit-border-radius: 10px 10px 10px 10px;
+	border: 2px solid #39dee0;
+}
+
+.userParthContainer .photoContainer img
+{
+	width: 100%;
+	height: 100%;
+	border-radius: 10px 10px 10px 10px;
+	-moz-border-radius: 10px 10px 10px 10px
+	-webkit-border-radius: 10px 10px 10px 10px;
+}
+
+.accountDataContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.accountDataContainer table
+{
+	margin-top: 5px;
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #7a7575;
+}
+
+.accountDataContainer table tr th
+{
+	background: #7a7575;
+	background: -moz-linear-gradient(top, #7a7575 1%, #333333 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(1%,#7a7575), color-stop(100%,#333333));
+	background: -webkit-linear-gradient(top, #7a7575 1%,#333333 100%);
+	background: -o-linear-gradient(top, #7a7575 1%,#333333 100%);
+	background: -ms-linear-gradient(top, #7a7575 1%,#333333 100%);
+	background: linear-gradient(to bottom, #7a7575 1%,#333333 100%);
+	color: white;
+	font-weight: bold;
+	text-align: center;
+	font-size: 16px;
+}
+
+.accountDataContainer table tr th, .accountDataContainer table tr td
+{
+	border: 1px solid #7a7575;
+	padding: 5px;
+}
+
+.accountDataContainer table tr td
+{
+	font-weight: normal;
+	text-align: center;
+	font-size: 14px;
+}
+
+.accountDataContainer a
+{
+	text-decoration: none;
+	color: #0d23cd;
+}
+.accountDataContainer a:hover
+{
+	text-decoration: underline;
+	color: #f21217;
+}
+
+.accountDataContainer a.addButton, .accountDataContainer a.addButton:visited, .accountDataContainer a.addButton:active
+{
+    display: inline-block;
+	background-color: #1fb718;
+	text-decoration: none;
+    font-weight: bold;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	margin-top: 20px;
+}
+
+.accountDataContainer a.addButton:hover
+{
+    background-color: #52fb4a;
+}

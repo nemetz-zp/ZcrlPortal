@@ -1,0 +1,5 @@
+ZcrlPortal/bin/*
+ZcrlPortal/obj/*
+packages/*
+ZcrlPortal/Web.Debug.config
+ZcrlPortal/Web.Release.config

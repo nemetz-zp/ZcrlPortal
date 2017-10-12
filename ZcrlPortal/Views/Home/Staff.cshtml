@@ -1,0 +1,79 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model List<UserProfile>
+@{
+    ViewBag.Title = "Персонал";
+    Layout = "~/Views/Shared/_main.cshtml";
+    List<DataGroup> ZcrlDepartments = ViewBag.Departments;
+    int currentDepartmentId = 0;
+    try
+    {
+        if (ViewBag.departmentId == null)
+        {
+            currentDepartmentId = 1;
+        }
+        else
+        {
+            currentDepartmentId = (int)ViewBag.departmentId;
+        }
+    }
+    catch (Exception e)
+    {
+        currentDepartmentId = 1;
+    }
+}
+
+
+<div class="staffContainer">
+
+    <ul class="departmentsList">
+        @foreach(var dep in ZcrlDepartments)
+        {
+            <li>
+                @if (currentDepartmentId == dep.Id)
+                {
+                    <a class="currentDepartment">@dep.Name</a>
+                }
+                else
+                {
+                    <a href="@Url.Action("Staff", "Home", new { departmentId = dep.Id })">@dep.Name</a>   
+                }
+            </li>
+        }
+    </ul>
+
+    <hr />
+
+    @if (Model.Count() == 0)
+    {
+        @:Данний підрозділ не має членів
+    }
+    <ul class="staffList">
+        @foreach(var zcrlEmployer in Model)
+        {
+            <li>
+                @if(!string.IsNullOrWhiteSpace(zcrlEmployer.PhotoFileName))
+                {
+                    <img src="@Url.Content(MasterController.UPLOADPHOTO_DIR + @"\" + zcrlEmployer.PhotoFileName)" />
+                }
+                else
+                {
+                    if(zcrlEmployer.Sex == UserSex.Male)
+                    {
+                        <img src="@Url.Content(@"~\UserPhotos\non_m.png")" />
+                    }
+                    else
+                    {
+                        <img src="@Url.Content(@"~\UserPhotos\non_f.png")" />
+                    }
+                }
+                <h1>@zcrlEmployer.LastName</h1>
+                <h2>@zcrlEmployer.FirstName @zcrlEmployer.MiddleName</h2>
+                <h3>@zcrlEmployer.JobTitle</h3>
+                <a href="@Url.Action("UserInfo", "Home", new { id = zcrlEmployer.Id })" class="moreInfo">Більше інформації</a>
+            </li>
+        }
+    </ul>
+    <div style="clear:both;"></div>
+    <br /><br />
+</div>

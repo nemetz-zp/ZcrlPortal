@@ -1,0 +1,254 @@
+/* Заголовок новости */
+.newsContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.newsContainer .newsHeader
+{
+	font-size: 24px;
+	font-weight: bold;
+	color: #3186ef;
+	margin: 0;
+	padding: 0;
+	margin-top: 5px;
+}
+
+.newsContainer .newsHeader a, .newsContainer .newsHeader a:visited, .newsContainer .newsHeader a:active
+{
+	text-decoration: none;
+    color: #1e59a3;
+}
+
+.newsContainer .newsHeader a:hover
+{
+	text-decoration: underline;
+}
+
+/* Блок редактирования */
+.newsContainer span.editor
+{
+	display: inline-block;
+	height: 16px;
+	padding: 0;
+	background-image: url('ico/settings16.png');
+	background-repeat: no-repeat;
+	font-size: 11px;
+	font-weight: bold;
+	font-style: italic;
+	margin-right: 50px;
+	padding-left: 20px;
+}
+.newsContainer span.editor a
+{
+	color: #27a911;
+	text-decoration: none;
+}
+.newsContainer span.editor a:hover
+{
+	color: #c0233d;
+	text-decoration: underline;
+}
+
+/* Автор публикации */
+.newsContainer span.publAuthor, .newsContainer span.category
+{
+	display: inline-block;
+	height: 16px;
+	padding: 0;
+	background-image: url('ico/pub_author.png');
+	background-repeat: no-repeat;
+	font-size: 11px;
+	font-weight: bold;
+	font-style: italic;
+	margin-right: 50px;
+	padding-left: 20px;
+}
+
+/* Дата публикации */
+.newsContainer span.publDate
+{
+	display: inline-block;
+	height: 16px;
+	padding: 0;
+	background-image: url('ico/pub_date.png');
+	background-repeat: no-repeat;
+	font-size: 11px;
+	font-weight: bold;
+	font-style: italic;
+	margin-right: 50px;
+	padding-left: 20px;
+}
+
+.newsContainer .headerImg
+{
+	display: block;
+    float: left;
+	width: 350px;
+	border: 3px solid #bbb9b7;
+	background: #ffffff;
+	padding: 0;
+	height: 219px;
+	margin: 0;
+	margin-top: 4px;
+    margin-right: 10px;
+    margin-bottom: 20px;
+}
+
+.newsContainer span.category 
+{
+	background-image: url('ico/cat.png');
+}
+
+.newsContainer span.publAuthor a, .newsContainer span.publAuthor a:visited, .newsContainer span.publAuthor a:active, .newsContainer span.category a, .newsContainer span.category a:visited, .newsContainer span.category a:active
+{
+	color: #27a911;
+	text-decoration: none;
+}
+.newsContainer span.publAuthor a:hover, .newsContainer span.category a:hover
+{
+	color: #c0233d;
+	text-decoration: underline;
+}
+
+.newsContainer .newsContent
+{
+	text-align: justify;
+}
+
+.newsContainer hr
+{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	height: 2px;
+	background-color: #5c5c5d;
+}
+
+.newsContainer a.readMore
+{
+	display: inline-block;
+	background-color: #a9014b;
+	text-decoration: none;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	margin-top: 20px;
+}
+.newsContainer a.readMore:hover
+{
+	background-color: #630030;
+}
+
+
+
+/* Содержимое новости */
+
+.newsContainer .newsContent a, .newsContainer .newsContent a:visited, .newsContainer .newsContent a:active 
+{
+	color: #1e2eaa;
+    text-decoration: none;
+}
+.newsContainer .newsContent a:hover
+{
+	color: #9c1616;
+    text-decoration: underline;
+}
+
+.newsContainer .newsContent blockquote
+{
+	font-style: italic;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	padding: 2px 0;
+	border-style: solid;
+	border-color: #ccc;
+	border-width: 0;
+}
+
+.newsContainer .newsContent ol, .newsContainer .newsContent ul, .newsContainer .newsContent dl
+{
+	/* IE7: reset rtl list margin. (#7334) */
+	*margin-right: 0px;
+	/* preserved spaces for list items with text direction other than the list. (#6249,#8049)*/
+	padding: 0 40px;
+}
+
+.newsContainer .newsContent .image-right
+{
+	border: 1px solid #ccc;
+	float: right;
+	margin-left: 15px;
+	padding: 5px;
+}
+.newsContainer .newsContent .image-left
+{
+	border: 1px solid #ccc;
+	float: left;
+	margin-right: 15px;
+	padding: 5px;
+}
+
+.newsContainer .newsContent .image-center
+{
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.newsContainer .newsContent a > img {
+	padding: 1px;
+	margin: 1px;
+	border: none;
+	outline: 1px solid #0782C1;
+}
+
+.newsContainer .newsContent p, .newsContainer .newsContent blockquote, .newsContainer .newsContent dl
+{
+	margin-bottom: 15px;
+}
+
+.newsContainer .newsContent figure
+{
+	text-align: center;
+	border: solid 1px #ccc;
+	border-radius: 2px;
+	background: rgba(0,0,0,0.05);
+	padding: 10px;
+	margin: 10px 20px;
+	display: inline-block;
+}
+
+.newsContainer .newsContent figure > figcaption
+{
+	text-align: center;
+	display: block; /* For IE8 */
+}
+
+.newsContainer .newsContent table { 
+	color: #333; /* Lighten up font color */
+	font-family: Helvetica, Arial, sans-serif; /* Nicer font */
+	width: 640px; 
+	border-collapse: collapse; 
+	border-spacing: 0; 
+}
+
+.newsContainer .newsContent td, .newsContainer .newsContent th { 
+	border: 1px solid #CCC; 
+	height: 30px; 
+    text-align: center; 
+} /* Make cells a bit taller */
+
+.newsContainer .newsContent th {
+	background: #F3F3F3; /* Light grey background */
+	font-weight: bold; /* Make sure they're bold */
+}
+
+.newsContainer .newsContent td {
+	background: #FAFAFA; /* Lighter grey background */
+}

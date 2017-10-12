@@ -1,0 +1,32 @@
+﻿@using ZcrlPortal.ViewModels
+@model LoginModel
+@{
+    ViewBag.Title = "Вхід на портал";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+
+@using (Html.BeginForm("Login", "Account", new { redirectUrl = ViewBag.redirectUrl }, FormMethod.Post, new { @class = "smart-green" }))
+{
+    <div class="registration">
+        <h2>@ViewBag.Title</h2>
+         @if (ViewBag.LoginError != null)
+         {
+             <div class="errorMessage">@ViewBag.LoginError</div>
+         }
+        
+        <table>
+            <tr>
+                <th>Логін: </th>
+                <td>@Html.TextBoxFor(k => k.Login, new { placeholder = "Введіть ваш логін" })</td>
+            </tr>
+            <tr>
+                <th>Пароль: </th>
+                <td>@Html.TextBoxFor(k => k.Password, new { type = "password", placeholder = "Введіть ваш пароль" })</td>
+            </tr>
+            <tr>
+                <td style="text-align: center;" colspan="2"><button type="submit">Увійти</button></td>
+            </tr>
+        </table>
+    </div>
+}

@@ -1,0 +1,119 @@
+.staffContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.staffContainer hr
+{
+	margin-top: 15px;
+	margin-bottom: 15px;
+	height: 2px;
+	background-color: #5c5c5d;
+}
+
+.staffContainer .staffList, .staffContainer .departmentsList
+{
+	margin: 0;
+	padding: 0;
+	list-style: outside none none;
+}
+
+.staffContainer .departmentsList li
+{
+	display: inline-block;
+}
+
+.staffContainer .staffList li
+{
+	float: left;
+	text-align: center;
+	width: 200px;
+	height: 380px;
+	margin: 0;
+	padding: 0;
+	margin-top: 15px;
+	margin-right: 33px;
+	border: none;
+	background: #ffffff;
+	padding-bottom: 8px;
+	border: 1px solid #22b6e7;
+	border-bottom: 4px solid #aa6112;
+}
+
+.staffContainer .staffList li img
+{
+	margin: 0px;
+	padding: 0px;
+	width: 200px;
+	height: 223px;
+}
+
+.staffContainer .staffList li h1, .staffList li h2, .staffList li h3
+{
+	display: block;
+	font-size: 15px;
+	font-weight: bold;
+	text-transform: uppercase;
+	margin: 0;
+	padding: 0;
+}
+
+.staffContainer .staffList li h2
+{
+	text-transform: none;
+}
+
+.staffContainer .staffList li h3
+{
+	margin-top: 8px;
+	height: 50px;
+	font-size: 13px;
+	text-transform: none;
+	font-weight: normal;
+	color: #7f7e7c;
+}
+
+.staffContainer .staffList li a.moreInfo, .staffContainer .departmentsList li a
+{
+	display: inline-block;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #2daebf;
+	text-decoration: none;
+	margin-top: 15px;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	min-width: 18px;
+}
+
+.staffContainer .staffList li a.moreInfo
+{
+	position: relative;
+	bottom: 2px;
+}
+
+.staffContainer .staffList li a.moreInfo:hover, .staffContainer .departmentsList li a:hover
+{
+	background-color: #007d9a;
+}
+
+.staffContainer .departmentsList li a.currentDepartment, .staffContainer .departmentsList li a.currentDepartment:hover
+{
+	display: inline-block;
+	-webkit-border-radius: .5em; 
+	-moz-border-radius: .5em;
+	border-radius: .5em;
+	background-color: #b56108;
+	text-decoration: none;
+	font-size: 12px;
+	color: white;
+	padding: 8px;
+	min-width: 15px;
+}

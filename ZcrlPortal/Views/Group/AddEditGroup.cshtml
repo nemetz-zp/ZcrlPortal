@@ -1,0 +1,61 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model DataGroup
+@{
+    Layout = "~/Views/Shared/_main.cshtml";
+    CrudMode mode = ViewBag.Mode;
+    string actionName = null;
+    
+    switch(mode)
+    {
+        case CrudMode.Add:
+            {
+                actionName = "Add";
+                break;
+            }
+        case CrudMode.Edit:
+            {
+                actionName = "Edit";
+                break;
+            }
+    }
+}
+<div class="editProfileContainer">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["Error"]))
+    {
+        <div class="errorMessage">@TempData["Error"]</div>
+    }
+
+    @using (Html.BeginForm(actionName, "Group", FormMethod.Post, new { @class = "smart-green" }))
+    {
+        if (mode == CrudMode.Edit)
+        {
+            Html.HiddenFor(m => m.Id);
+        }
+        
+        @Html.HiddenFor(m => m.RelatedGroup)
+        
+        <table>
+            <tr>
+                <th>Назва:</th>
+                <td>@Html.TextBoxFor(m => m.Name, new { placeholder = "Введіть назву типу данних" })</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">
+                        @if (mode == CrudMode.Edit)
+                        {
+                            @:Змінити данні
+                        }
+                        else
+                        {
+                            @:Створити запис
+                        }
+                    </button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+

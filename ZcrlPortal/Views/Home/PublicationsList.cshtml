@@ -1,0 +1,211 @@
+﻿@using ZcrlPortal.Models
+@model List<Publication>
+@{
+    string listActionName = null;
+    string listControllerName = "Home";
+    if(Model.Count > 0)
+    {
+        switch(Model.First().InformationType)
+        {
+            case PublicationType.Article:
+                {
+                    listActionName = "Articles";
+                    break;
+                }
+            case PublicationType.News:
+                {
+                    listActionName = "News";
+                    break;
+                }
+        }
+    }
+    
+    Layout = "~/Views/Shared/_main.cshtml";
+    var culture = new System.Globalization.CultureInfo("uk-UA");
+    int maxPageNumber = ViewBag.MaxPageNumber;
+    int currentPage = 0;
+    if(ViewBag.page == null)
+    {
+        currentPage = 1;
+    }
+    else
+    {
+        currentPage = ViewBag.page;
+    }  
+ } 
+  
+
+
+<div class="newsContainer">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["SuccessMessage"]))
+    {
+        <div class="successMessage">@TempData["SuccessMessage"]</div>
+    }
+
+    @if(Model.Count() == 0)
+    {
+        @:Данний розділ порожній
+    }
+    @foreach (var publicationItem in Model)
+    {
+        <h1 class="newsHeader"><a href="@Url.Action("PublicationDetails", "Home", new { id = publicationItem.Id })">@publicationItem.Title</a></h1>
+        if (User.IsInRole("Editors") || User.IsInRole("Administrators"))
+        {
+            <span class="editor"><a href="@Url.Action("Edit", "Editor", new { id = publicationItem.Id })">Редагувати</a> | <a href="@Url.Action("Delete", "Editor", new { id = publicationItem.Id })" onclick="return confirm('Вы впевнені, що хочете видалити цю публікацію?')">Видалити</a></span>
+        }
+        if((publicationItem.InformationType == PublicationType.Article) 
+            && (User.IsInRole("Doctors") && (publicationItem.Author.Id == (int)Profile["Id"])))
+        {
+            <span class="editor"><a href="@Url.Action("Edit", "Editor", new { id = publicationItem.Id })">Редагувати</a> | <a href="@Url.Action("Delete", "Editor", new { id = publicationItem.Id })" onclick="return confirm('Вы впевнені, що хочете видалити цю публікацію?')">Видалити</a></span>
+        }
+        <span class="publDate">Дата публікації: @publicationItem.GetPortalDate() р.</span>
+        if(publicationItem.Author != null)
+        {
+            <span class="publAuthor">
+                Автор: <a href="@Url.Action("UserInfo", "Home", new { id = publicationItem.Author.Id })">@publicationItem.Author.LastName @publicationItem.Author.FirstName.Substring(0, 1).@publicationItem.Author.MiddleName.Substring(0, 1).</a>
+            </span>
+        }
+        if(publicationItem.InformationType == PublicationType.Article)
+        {
+            if(publicationItem.Themes.Count != 0)
+            {
+                <span class="category">Тема: 
+                    @for(int i = 0; i < publicationItem.Themes.Count; i++)
+                    {
+                        <a href="">@publicationItem.Themes[i].Name</a>
+                        if(i != (publicationItem.Themes.Count - 1))
+                        {
+                            @:, 
+                        }
+                    }
+                </span>
+            }
+        }
+        
+        <div style="clear:both; margin-bottom: 20px;"></div>
+        if(!string.IsNullOrWhiteSpace(publicationItem.TitleImage))
+        {
+            <img class="headerImg" src="@Url.Content(@"~\UploadFiles\" + @publicationItem.TitleImage)" alt="Зображення завантажується" />
+        }
+        <div class="newsContent">
+            @if(!string.IsNullOrWhiteSpace(publicationItem.Summary))
+            {
+                @publicationItem.Summary
+            }
+            else
+            {
+                @:-----------------------
+            }
+        </div>
+        <a class="readMore" href="@Url.Action("PublicationDetails", "Home", new { id = publicationItem.Id })">Детальніше</a>
+        <div style="clear:both; margin-bottom: 20px;"></div>
+        <hr />
+    }
+
+    <!-- Pager here -->
+    @if(maxPageNumber > 1)
+    {
+        <ul class="pager">
+            @if(currentPage > 1)
+            {
+                <li><a href="@Url.Action(listActionName, listControllerName, new { page = currentPage - 1 })">Попередня</a></li>
+            }
+            @if(maxPageNumber > 11)
+            {
+                if(currentPage <= 5)
+                {
+                    for(int i = 1; i <= 7; i++)
+                    {
+                        if(currentPage == i)
+                        {
+                            <li><a class="currentPage">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                        }
+                    }
+                    <li> ... </li>
+                    for(int i = maxPageNumber - 2; i <= maxPageNumber; i++)
+                    {
+                        <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                    }
+                }
+                if((currentPage > 5) && (maxPageNumber - currentPage > 4))
+                {
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = 1 })">1</a></li>
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = 2 })">2</a></li>
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = 3 })">3</a></li>
+                    <li> ... </li>
+                    for(int i = currentPage - 1; i <= (currentPage + 1); i++)
+                    {
+                        if(currentPage == i)
+                        {
+                            <li><a class="currentPage">@i</a></li>
+                        }
+                        else
+                        {
+                            <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                        }
+                    }
+                    <li> ... </li>
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = maxPageNumber - 2 })">@(maxPageNumber - 2)</a></li>
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = maxPageNumber - 1 })">@(maxPageNumber - 1)</a></li>
+                    <li><a href="@Url.Action(listActionName, listControllerName, new { page = maxPageNumber })">@(maxPageNumber)</a></li>
+                }
+                if((maxPageNumber - currentPage) <= 4)
+                {
+                    if(currentPage == maxPageNumber)
+                    {
+                        for(int i = 1; i <= 7; i++)
+                        {
+                            <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                        }
+                        <li> ... </li>
+                        <li><a href="@Url.Action(listActionName, listControllerName, new { page = maxPageNumber - 2 })">@(maxPageNumber - 2)</a></li>
+                        <li><a href="@Url.Action(listActionName, listControllerName, new { page = maxPageNumber - 1 })">@(maxPageNumber - 1)</a></li>
+                        <li><a class="currentPage">@currentPage</a></li>
+                    }
+                    else
+                    {
+                        for(int i = 1; i < (11 - (maxPageNumber - currentPage + 2)); i++)
+                        {
+                            <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                        }
+                        <li> ... </li>
+                        for(int i = currentPage - 1; i <= maxPageNumber; i++)
+                        {
+                            if(currentPage == i)
+                            {
+                                <li><a class="currentPage">@i</a></li>
+                            }
+                            else
+                            {
+                                <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for(int i = 1; i <= maxPageNumber; i++)
+                {
+                    if(currentPage == i)
+                    {
+                        <li><a class="currentPage">@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action(listActionName, listControllerName, new { page = i })">@i</a></li>
+                    }
+                }
+            }
+            @if(currentPage < maxPageNumber)
+            {
+                <li><a href="@Url.Action(listActionName, listControllerName, new { page = currentPage + 1 })">Наступна</a></li>
+            }
+        </ul>
+    }
+    <br /><br />
+</div>

@@ -1,0 +1,85 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model UploadFile
+@{
+    CrudMode mode;
+    if (ViewBag.Mode == null && Model != null)
+    {
+        mode = CrudMode.Edit;
+    }
+    else
+    {
+        mode = ViewBag.Mode;
+    }
+
+    string actionName = null;
+
+    switch (mode)
+    {
+        case CrudMode.Add:
+            {
+                ViewBag.Title = "Додати новий файл";
+                actionName = "AddFileToList";
+                break;
+            }
+        case CrudMode.Edit:
+            {
+                ViewBag.Title = "Редагування файлу";
+                actionName = "EditFileInList";
+                break;
+            }
+    }
+
+    string errorMessage = null;
+    if (!string.IsNullOrWhiteSpace((string)TempData["Error"]))
+    {
+        errorMessage = (string)TempData["Error"];
+    }
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="editProfileContainer">
+    @if (errorMessage != null)
+    {
+        <div class="errorMessage">@errorMessage</div>
+    }
+
+    @using (Html.BeginForm(actionName, "Admin", FormMethod.Post, new { @class = "smart-green", enctype = "multipart/form-data" }))
+    {
+        if (mode == CrudMode.Edit)
+        {
+            Html.HiddenFor(m => m.Id);
+        }
+        
+        @Html.HiddenFor(m => m.UserProfileId)
+
+        <table>
+            <tr>
+                <th>Назва файлу:</th>
+                <td>@Html.TextBoxFor(m => m.DisplayName)</td>
+            </tr>
+            <tr>
+                <th>Файл:</th>
+                <td><input type="text" class="ufName" readonly="readonly" id="ufName" /> <div class="uploadFileContainer"><span>Вибрати файл</span><input name="attachedFile" id="attachedFile" type="file" onchange="GetUploadFileName(this)" /></div></td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">
+                        @if (mode == CrudMode.Edit)
+                        {
+                            @:Змінити данні
+                        }
+                        else
+                        {
+                            @:Додати файл
+                        }
+                    </button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,81 @@
+﻿@using ZcrlPortal.Models
+@model Publication
+@{
+    string listActionName = null;
+    
+    switch(Model.InformationType)
+    {
+        case PublicationType.News:
+            {
+                listActionName = "News";
+                ViewBag.Title = "Новини";
+                break;
+            }
+        case PublicationType.Article:
+            {
+                listActionName = "Articles";
+                ViewBag.Title = "Статті";
+                break;
+            }
+    }
+    
+    Layout = "~/Views/Shared/_main.cshtml";
+    var culture = new System.Globalization.CultureInfo("uk-UA");
+    bool isEmptyContent = string.IsNullOrWhiteSpace(Model.Content);
+}
+<div class="newsContainer">
+    <h1 class="newsHeader"><a href="@Url.Action("PublicationDetails", "Home", new { id = Model.Id })">@Model.Title</a></h1>
+    @if (User.IsInRole("Editors") || User.IsInRole("Administrators"))
+    {
+        <span class="editor"><a href="@Url.Action("Edit", "Editor", new { id = Model.Id })">Редагувати</a> | <a href="@Url.Action("Delete", "Editor", new { id = Model.Id })" onclick="return confirm('Вы впевнені, що хочете видалити цю публікацію?')">Видалити</a></span>
+    }
+    @if ((Model.InformationType == PublicationType.Article)
+            && (User.IsInRole("Doctors") && (Model.Author.Id == (int)Profile["Id"])))
+    {
+        <span class="editor"><a href="@Url.Action("Edit", "Editor", new { id = Model.Id })">Редагувати</a> | <a href="@Url.Action("Delete", "Editor", new { id = Model.Id })" onclick="return confirm('Вы впевнені, що хочете видалити цю публікацію?')">Видалити</a></span>
+    }
+    <span class="publDate">Дата публікації: @Model.GetPortalDate() р.</span>
+    @if (Model.Author != null)
+    {
+        <span class="publAuthor">
+            Автор: <a href="@Url.Action("UserInfo", "Home", new { id = Model.Author.Id })">@Model.Author.LastName @Model.Author.FirstName.Substring(0, 1).@Model.Author.MiddleName.Substring(0, 1).</a>
+        </span>
+    }
+    
+    @if(Model.InformationType == PublicationType.Article)
+    {
+        if (Model.Themes.Count != 0)
+        {
+            <span class="category">
+                Тема:
+                @for (int i = 0; i < Model.Themes.Count; i++)
+                {
+                    <a href="">@Model.Themes[i].Name</a>
+                    if (i != (Model.Themes.Count - 1))
+                    {
+                        @:, 
+                    }
+                }
+            </span>
+        }
+    }
+    <div style="clear:both; margin-bottom: 20px;"></div>
+    
+    @if(!isEmptyContent)
+    {
+        <b><i>@Model.Summary</i></b>
+        <br /><br />
+    }
+    
+    <div class="newsContent">
+        @if (isEmptyContent)
+        {
+            @Model.Summary
+        }
+        else
+        {
+            @MvcHtmlString.Create(Model.Content)   
+        }
+    </div>
+    <br /><br />
+</div>

@@ -1,0 +1,38 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model List<AdvBanner>
+@{
+    ViewBag.Title = "Список банерів";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="accountDataContainer">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["SuccessMessage"]))
+    {
+        <div class="successMessage">@TempData["SuccessMessage"]</div>
+    }
+    <a href="@Url.Action("AddBanner", "Admin")" class="addButton">Додати баннер</a>
+    <table>
+        <tr>
+            <th style="width: 5%">№</th>
+            <th style="width: 40%">Баннер</th>
+            <th style="width: 25%">Дія</th>
+        </tr>
+        @if (Model.Count == 0)
+        {
+            <tr><td colspan="3" style="text-align: center;"><i>Баннерів немає</i></td></tr>
+        }
+        @for (int i = 0; i < Model.Count; i++)
+        {
+            <tr>
+                <td>@(i + 1)</td>
+                <td><a href="@Model[i].DestUrl" title="@Model[i].Name">
+                        <img src="@Url.Content(MasterController.UPLOADFILE_DIR + @"\" + Model[i].ImgName)" class="advItem" />
+                    </a>
+                </td>
+                <td><a href="@Url.Action("EditBanner", "Admin", new { id = Model[i].Id })">Редагувати</a> | <a href="@Url.Action("DeleteBanner", "Admin", new { id = Model[i].Id })" onclick="return confirm('Вы впевнені, що хочете видалити тип данних - @Model[i].Name?')">Видалити</a></td>
+            </tr>
+        }
+    </table>
+</div>
+

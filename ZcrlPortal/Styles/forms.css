@@ -1,0 +1,233 @@
+		/*######## Smart Green ########*/
+		.smart-green {
+			background: #F8F8F8;
+			padding: 0px;
+			padding-left: 15px;
+			font: 12px Arial, Helvetica, sans-serif;
+			color: #666;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-radius: 5px;
+		}
+		.smart-green h1 {
+			font: 24px "Trebuchet MS", Arial, Helvetica, sans-serif;
+			padding: 20px 0px 20px 40px;
+			display: block;
+			margin: -30px -30px 10px -30px;
+			color: #FFF;
+			background: #9DC45F;
+			text-shadow: 1px 1px 1px #949494;
+			border-radius: 5px 5px 0px 0px;
+			-webkit-border-radius: 5px 5px 0px 0px;
+			-moz-border-radius: 5px 5px 0px 0px;
+			border-bottom:1px solid #89AF4C;
+
+		}
+		.smart-green h1>span {
+			display: block;
+			font-size: 11px;
+			color: #FFF;
+		}
+
+		.smart-green label {
+			display: block;
+			margin: 0px 0px 5px;
+			font-weight: bold;
+		}
+		
+		
+		.smart-green label>span {
+			display: block;
+			margin-top: 10px;
+			color: #5E5E5E;
+		}
+		.smart-green input[type="text"], input[type="password"], .smart-green input[type="email"], .smart-green textarea, .smart-green select {
+			color: #555;
+			line-height:15px;
+			padding: 0px 0px 0px 10px;
+			margin-top: 2px;
+			border: 1px solid #E5E5E5;
+			background: #FBFBFB;
+			outline: 0;
+			-webkit-box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+			box-shadow: inset 1px 1px 2px rgba(238, 238, 238, 0.2);
+			font: normal 14px/14px Arial, Helvetica, sans-serif;
+		}
+		.smart-green textarea{
+			height:100px;
+			padding-top: 10px;
+		}
+		
+		.smart-green input[type="text"], .smart-green input[type="password"], .smart-green select, .smart-green textarea
+		{
+			width: 210px;
+			height: 30px;
+		}
+		
+		.smart-green select
+		{
+			width: 260px;
+		}
+		
+		.smart-green .buttonWrapper
+		{
+			text-align: center;
+		}
+		
+		.smart-green select {
+			display: block;
+			background: url('down-arrow.png') no-repeat right, -moz-linear-gradient(top, #FBFBFB 0%, #E9E9E9 100%);
+			background: url('down-arrow.png') no-repeat right, -webkit-gradient(linear, left top, left bottom, color-stop(0%,#FBFBFB), color-stop(100%,#E9E9E9));
+			appearance:none;
+			-webkit-appearance:none; 
+			-moz-appearance: none;
+			text-indent: 0.01px;
+			text-overflow: '';
+		}
+		.smart-green button, .smart-green .uploadFileContainer {
+			margin-top: 5px;
+			margin-bottom: 5px;
+			background-color: #9DC45F;
+			border-radius: 5px;
+			-webkit-border-radius: 5px;
+			-moz-border-border-radius: 5px;
+			border: none;
+			padding: 10px 25px 10px 25px;
+			color: #FFF;
+			text-shadow: 1px 1px 1px #949494;
+		}
+
+        .smart-green .uploadFileContainer
+        {
+            display: inline-block;
+            background-color: #428bca;
+            border-color: #357ebd;
+            color: #fff;
+            position: relative;
+            cursor: pointer;
+            margin: 0;
+            padding: 10px;
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        .smart-green .uploadFileContainer:hover
+        {
+            background-color: #3071a9;
+        }
+
+        .smart-green input[type="file"]
+        {
+            cursor: pointer;
+            opacity: 0;
+            position: absolute;
+            margin: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .smart-green input.ufName
+        {
+            width: 120px;
+        }
+		
+		.smart-green button:hover {
+			background-color:#80A24A;
+		}
+		
+		.smart-green input:focus, .smart-green textarea:focus
+		{
+			box-shadow: 0 0 1px 1px #3399ff;
+			outline: medium none;
+		}
+		
+		.smart-green a
+		{
+			color: #373737;
+			text-decoration: none;
+		}
+		
+		.smart-green a:hover
+		{
+			color: #2420e7;
+			text-decoration: underline;
+		}
+		
+		.smart-green .registration
+		{
+			width: 400px;
+			margin: 0 auto;
+			margin-top: 20px;
+			margin-bottom: 20px;
+			padding: 15px;
+			background: #e8ffff;
+			border-radius: 10px 10px 10px 10px;
+			-moz-border-radius: 10px 10px 10px 10px;
+			-webkit-border-radius: 10px 10px 10px 10px;
+			-webkit-box-shadow: 1px 0px 13px 2px rgba(0,0,0,0.75);
+			-moz-box-shadow: 1px 0px 13px 2px rgba(0,0,0,0.75);
+			box-shadow: 1px 0px 13px 2px rgba(0,0,0,0.75);
+		}
+		
+		.smart-green .registration h2
+		{
+			text-align: center;
+			border-bottom: 1px solid #c4aec4;
+			text-transform: uppercase;
+			padding: 0px;
+			padding-bottom: 3px;
+			margin: 0px;
+			margin-bottom: 10px;
+		}
+		
+		.smart-green .registration table
+		{
+			border: none;
+			border-collapse: collapse;
+			width: 100%;
+		}
+		
+		.smart-green .registration table tr th
+		{
+			text-align: right;
+		}
+		
+		.smart-green .registration table tr td
+		{
+			text-align: center;
+		}
+		
+		.infoMessage,  .successMessage, .warningMessage, .errorMessage 
+		{
+			border: 1px solid;
+			margin: 10px 0px;
+			padding:15px 10px 15px 50px;
+			background-repeat: no-repeat;
+			background-position: 10px center;
+		}
+		.infoMessage 
+		{
+			color: #00529B;
+			background-color: #BDE5F8;
+			background-image: url('ico/info.png');
+		}
+		.successMessage 
+		{
+			color: #4F8A10;
+			background-color: #DFF2BF;
+			background-image:url('ico/success.png');
+		}
+		.warningMessage 
+		{
+			color: #9F6000;
+			background-color: #FEEFB3;
+			background-image: url('ico/warning.png');
+		}
+		.errorMessage 
+		{
+			color: #D8000C;
+			background-color: #FFBABA;
+			background-image: url('ico/error.png');
+		}

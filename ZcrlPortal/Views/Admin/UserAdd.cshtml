@@ -1,0 +1,91 @@
+﻿@using ZcrlPortal.Models
+@model RegistrationRequest
+@{
+    string errorMessage = null;
+    
+    if(!string.IsNullOrWhiteSpace((string)TempData["Error"]))
+    {
+        errorMessage = (string)TempData["Error"];
+    }
+    
+    ViewBag.Title = "Створити нового користувача";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="editProfileContainer">
+    @if (errorMessage != null)
+    {
+        <div class="errorMessage">@errorMessage</div>
+    }
+
+    @using (Html.BeginForm("UserAdd", "Admin", FormMethod.Post, new { @class = "smart-green" }))
+    {
+        <table>
+            <tr>
+                <th>Логін:</th>
+                <td>@Html.TextBoxFor(m => m.Login, new { placeholder = "Введіть логін" })</td>
+            </tr>
+            <tr>
+                <th>Пароль:</th>
+                <td>@Html.TextBoxFor(m => m.Password, new { type = "password", placeholder = "Введіть пароль" })</td>
+            </tr>
+            <tr>
+                <th>Підвердження паролю:</th>
+                <td>@Html.TextBoxFor(m => m.ConfirmPassword, new { type = "password", placeholder = "Підтвердіть пароль" })</td>
+            </tr>
+            <tr>
+                <td colspan="2"><br /><br /></td>
+            </tr>
+            <tr>
+                <th>Ім'я:</th>
+                <td>@Html.TextBoxFor(m => m.FirstName, new { placeholder = "Введіть ім'я" })</td>
+            </tr>
+            <tr>
+                <th>Прізвище:</th>
+                <td>@Html.TextBoxFor(m => m.LastName, new { placeholder = "Введіть прізвище" })</td>
+            </tr>
+            <tr>
+                <th>По-батькові:</th>
+                <td>@Html.TextBoxFor(m => m.MiddleName, new { placeholder = "Введіть ім'я по-батькові" })</td>
+            </tr>
+            <tr>
+                <th>Стать: </th>
+                <td>@Html.RadioButtonFor(m => m.Sex, UserSex.Male) Чоловіча  @Html.RadioButtonFor(m => m.Sex, UserSex.Female) Жіноча</td>
+            </tr>
+            <tr>
+                <td colspan="2"><br /><br /></td>
+            </tr>
+            <tr>
+                <th>Посада: </th>
+                <td>@Html.TextBoxFor(m => m.JobTitle, new { placeholder = "Ваша посада" })</td>
+            </tr>
+            <tr>
+                <th>Робочий телефон: </th>
+                <td>@Html.TextBoxFor(m => m.TelephoneNumber, new { placeholder = "Ваша телефон" })</td>
+            </tr>
+            <tr>
+                <th>Кабінет: </th>
+                <td>@Html.TextBoxFor(m => m.WorkLocation, new { placeholder = "Номер Вашого кабінет" })</td>
+            </tr>
+            <tr>
+                <th>Email: </th>
+                <td>@Html.TextBoxFor(m => m.Email, new { placeholder = "Ваш Email" })</td>
+            </tr>
+            <tr>
+                <th>Освіта: </th>
+                <td>@Html.TextBoxFor(m => m.Education, new { placeholder = "ВНЗ що закінчив користувач" })</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">Створити користувача</button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+<script>
+    jQuery(function ($) {
+        $("#TelephoneNumber").mask("(061) 999-99-99");
+    });
+</script>

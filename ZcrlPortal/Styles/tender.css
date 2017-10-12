@@ -1,0 +1,63 @@
+.tenderContainer
+{
+	border: 0;
+	margin: 0;
+	padding: 0;
+	padding-left: 17px;
+	padding-right: 17px;
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+}
+
+.tenderContainer .tenderSection 
+{
+	margin: 0;
+	padding: 0;
+	padding-top: 10px;
+	margin-bottom: 25px;
+}
+
+.tenderContainer h1
+{
+	text-transform: uppercase;
+	font-size: 18px;
+	font-weight: bold;
+	color: #bb6407;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 5px;
+}
+
+.tenderContainer a
+{
+	text-decoration: none;
+	color: #1f11d9;
+}
+
+.tenderContainer a:hover
+{
+	text-decoration: underline;
+	color: #fe0c0c;
+}
+
+.tenderContainer span.publication
+{
+	display: inline-block;
+	position: relative;
+	top: -5px;
+	font-size: 10px;
+	font-style: italic;
+	margin: 0;
+	padding: 0;
+	margin-right: 25px;
+}
+
+.tenderContainer span.publication a
+{
+	text-decoration: none;
+	color: #31c010;
+}
+.tenderContainer span.publication a:hover
+{
+	text-decoration: underline;
+	color: #fe0c0c;
+}

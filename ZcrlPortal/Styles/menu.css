@@ -1,0 +1,120 @@
+#menu {
+    background: linear-gradient(#50b20f, #245305) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    box-shadow: 0 2px 1px #9c9c9c;
+    list-style: outside none none;
+    margin: 0;
+    padding: 10px 0 0;
+    width: 100%;
+	text-align: center;
+}
+#menu li {
+    display: inline-block;
+    line-height: 0;
+    padding: 0 0 5px;
+    position: relative;
+}
+#menu a {
+    color: #ffffff;
+    float: left;
+    font: bold 12px/25px Arial,Helvetica;
+    height: 25px;
+    padding: 0 25px;
+    text-decoration: none;
+    text-shadow: 0 1px 0 #000;
+    text-transform: uppercase;
+}
+#menu li:hover > a {
+    color: #bce934;
+}
+#menu li:hover > ul {
+    display: block;
+}
+#menu ul {
+    background: linear-gradient(#50b20f, #245305) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    box-shadow: 0 0 2px rgba(255, 255, 255, 0.5);
+    display: none;
+    left: 0;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    top: 28px;
+    z-index: 99999;
+}
+#menu ul ul {
+    left: 150px;
+    top: 0;
+}
+#menu ul li {
+    box-shadow: 0 1px 0 #111111, 0 2px 0 #777777;
+    display: block;
+    float: none;
+    margin: 0;
+    padding: 0;
+}
+#menu ul li:last-child {
+    box-shadow: none;
+}
+#menu ul a {
+    display: block;
+    float: none;
+    height: auto;
+    line-height: 1;
+    padding: 10px;
+    text-transform: none;
+    white-space: nowrap;
+    width: 130px;
+}
+:first-child + html #menu ul a {
+    height: 10px;
+}
+#menu ul a:hover {
+    background: linear-gradient(#04acec, #0186ba) repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+#menu ul li:first-child > a {
+    border-radius: 5px 5px 0 0;
+}
+#menu ul li:first-child > a:after {
+    border-bottom: 8px solid #50b20f;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    content: "";
+    height: 0;
+    left: 30px;
+    position: absolute;
+    top: -8px;
+    width: 0;
+}
+#menu ul ul li:first-child a:after {
+    border-color: transparent #444 transparent -moz-use-text-color;
+    border-left: 0 none;
+    border-style: solid solid solid none;
+    border-width: 5px 8px 5px 0;
+    height: 0;
+    left: -8px;
+    top: 12px;
+    width: 0;
+}
+#menu ul li:first-child a:hover:after {
+    border-bottom-color: #04acec;
+}
+#menu ul ul li:first-child a:hover:after {
+    border-bottom-color: transparent;
+    border-right-color: #04acec;
+}
+#menu ul li:last-child > a {
+    border-radius: 0 0 5px 5px;
+}
+#menu:after {
+    clear: both;
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    visibility: hidden;
+}
+* html #menu {
+}
+:first-child + html #menu {
+}

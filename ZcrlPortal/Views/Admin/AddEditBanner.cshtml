@@ -1,0 +1,93 @@
+﻿@using ZcrlPortal.Controllers
+@using ZcrlPortal.Models
+@model AdvBanner
+@{
+    CrudMode mode;
+    if(ViewBag.Mode == null && Model != null)
+    {
+        mode = CrudMode.Edit;
+    }
+    else
+    {
+        mode = ViewBag.Mode;
+    }
+    
+    string actionName = null;
+    
+    switch(mode)
+    {
+        case CrudMode.Add:
+            {
+                ViewBag.Title = "Створити новий баннер";
+                actionName = "AddBanner";
+                break;
+            }
+        case CrudMode.Edit:
+            {
+                ViewBag.Title = "Редагування баннеру";
+                actionName = "EditBanner";
+                break;
+            }
+    }
+    
+    string errorMessage = null;
+    if(!string.IsNullOrWhiteSpace((string)TempData["Error"]))
+    {
+        errorMessage = (string)TempData["Error"];
+    }
+    
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+
+<div class="editProfileContainer">
+    @if (errorMessage != null)
+    {
+        <div class="errorMessage">@errorMessage</div>
+    }
+
+    @using (Html.BeginForm(actionName, "Admin", FormMethod.Post, new { @class = "smart-green", enctype = "multipart/form-data" }))
+    {
+        if (mode == CrudMode.Edit)
+        {
+            Html.HiddenFor(m => m.Id);
+        }
+
+        <table>
+            <tr>
+                <th>Назва баннеру:</th>
+                <td>@Html.TextBoxFor(m => m.Name)</td>
+            </tr>
+            <tr>
+                <th>Адреса сайту:</th>
+                <td>@Html.TextBoxFor(m => m.DestUrl)</td>
+            </tr>
+            <tr>
+                <th>Файл-баннер:</th>
+                <td><input type="text" class="ufName" readonly="readonly" id="ufName" /> <div class="uploadFileContainer"><span>Вибрати файл</span><input name="bannerFile" id="bannerFile" type="file" onchange="GetUploadFileName(this)" /></div></td>
+            </tr>
+            <tr>
+                <th>Порядок відображення:</th>
+                <td>@Html.TextBoxFor(m => m.ViewPriority)</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">
+                        @if (mode == CrudMode.Edit)
+                        {
+                            @:Змінити данні
+                        }
+                        else
+                        {
+                            @:Додати баннер
+                        }
+                    </button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+
+
+

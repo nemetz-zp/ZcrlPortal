@@ -1,0 +1,272 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.ViewModels
+@using ZcrlPortal.Controllers
+@{
+    List<AdvBanner> bannersList = ViewBag.Banners;
+    List<ViewTenderYear> tenderYears = ViewBag.TendersList;
+    int regRequestsCount = ViewBag.RegistrationRequests;
+    string currentUrl = Request.Url.AbsoluteUri;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Запорізька ЦРЛ :: @ViewBag.Title</title>
+    <link rel="shortcut icon" href="@Url.Content(@"~\Styles\img\fav.png")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\main.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\menu.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\forms.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\news_page.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\pager.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\tender.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\staff.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\aboutUser.css")" />
+    <link rel="stylesheet" href="@Url.Content(@"~\Styles\account.css")" />
+    @if (IsSectionDefined("SpecifyViewCss"))
+    {
+        @RenderSection("SpecifyViewCss")
+    }
+    <script src="@Url.Content(@"~\Scripts\jquery-1.11.2.min.js")"></script>
+    <script src="@Url.Content(@"~\Scripts\jquery.maskedinput.js")"></script>
+    <script src="@Url.Content(@"~\Scripts\ckeditor\ckeditor.js")"></script>
+    <script>
+        function GetUploadFileName(fileInput) {
+            document.getElementById("ufName").value = fileInput.value;
+        }
+        function CutText(inputText)
+        {
+            return inputText.replace(/^(.{150}[^\s]*).*/, "$1");
+        }
+        function GetNonHtmlFromCK(editorName)
+        {
+            var html = CKEDITOR.instances[editorName].getSnapshot();
+            var blockForHtml = document.createElement("div");
+
+            blockForHtml.innerHTML = html;
+
+            var just_text = (blockForHtml.textContent || blockForHtml.innerText);;
+
+            document.getElementById("Summary").value = CutText(just_text);
+        }
+    </script>
+</head>
+
+<body>
+    <div class="siteContainer">
+
+        <!-- Header block -->
+        <div class="siteHeaderPath">
+            <img class="headerLogo" src="@Url.Content(@"~\Styles\img\logo.jpg")" />
+        </div>
+
+        <!-- Menu block -->
+        <div class="siteMenuPath">
+            <ul id="menu">
+                <li><a href="@Url.Action("News", "Home")">НОВИНИ</a></li>
+                <li><a href="@Url.Action("Articles", "Home")">СТАТТІ</a></li>
+                <li><a href="@Url.Action("Staff", "Home")">ПЕРСОНАЛ</a></li>
+                <li>
+                    <a href="@Url.Action("Tender", "Home")">ДЕРЖАВНІ ЗАКУПІВЛІ</a>
+                    <ul>
+                        @foreach(var year in tenderYears)
+                        {
+                            <li><a href="@Url.Action("Tender", "Home", new { year = year.Value })">@year.Name</a></li>
+                        }
+                    </ul>
+                </li>
+                <li><a href="@Url.Action("Information", "Home")">ІНФОРМАЦІЯ</a></li>
+                <li><a href="@Url.Action("History", "Home")">ІСТОРІЯ ЛІКАРНІ</a></li>
+            </ul>
+        </div>
+
+        <!-- Block with login page and advertisement -->
+        <div class="siteLeftNavyPath">
+            @if (User.Identity.IsAuthenticated)
+            {
+                <div class="navyPathHeader">Панель користувача</div>
+                <div class="navyPathContent">
+                    <div class="userParthContainer">
+                        <div class="photoContainer">
+                            @if (string.IsNullOrWhiteSpace((string)Profile["PhotoFileName"]))
+                            {
+                                if ((UserSex)Profile["Sex"] == UserSex.Male)
+                                {
+                                    <img src="@Url.Content(@"~\UserPhotos\non_m.png")" />
+                                }
+                                else
+                                {
+                                    <img src="@Url.Content(@"~\UserPhotos\non_f.png")" />
+                                }
+                            }
+                            else
+                            {
+                                <img src="@Url.Content(MasterController.UPLOADPHOTO_DIR + @"\" + (string)Profile["PhotoFileName"])" />
+                            }
+                        </div>
+                        <h1>@Profile["FirstName"] @Profile["LastName"]</h1>
+                        <a href="@Url.Action("EditProfile", "UserProfile")">Профіль</a> | <a href="@Url.Action("LogOut", "Account")">Вихід</a>
+                        @if (User.IsInRole("Administrators"))
+                        {
+                            <hr />
+                            <ul>
+                                <li>
+                                    Користувачі
+                                    <ul>
+                                        <li>
+                                            <a href="@Url.Action("RegistrationRequestsList", "Admin")">
+                                                Заявки на реэстрацію
+                                                @if (regRequestsCount > 0)
+                                                {
+                                                    @: <b>(@regRequestsCount)</b>
+                                                }
+                                            </a>
+                                        </li>
+                                        <li><a href="@Url.Action("UsersList", "Admin")">Управління користувачами</a></li>
+                                        <li><a href="@Url.Action("UserGroups", "Group")">Группи користувачів</a></li>
+                                        <li><a href="@Url.Action("UsersLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li>Банери
+                                    <ul>
+                                        <li><a href="@Url.Action("BannersList", "Admin")">Список банерів</a></li>
+                                        <li><a href="@Url.Action("BannersLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("FilesList", "Admin")">Менеджер файлів</a></li>
+                                <li>Новини
+                                    <ul>
+                                        <li><a href="@Url.Action("AddNews", "Editor")">Додати новину</a></li>
+                                        <li><a href="@Url.Action("NewsLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li>Статті
+                                    <ul>
+                                        <li><a href="@Url.Action("ArticleGroups", "Group")">Категорії статей</a></li>
+                                        <li><a href="@Url.Action("AddArticle", "Editor")">Додати статтю</a></li>
+                                        <li><a href="@Url.Action("ArticleLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li>Державні закупівлі
+                                    <ul>
+                                        <li><a href="@Url.Action("TenderGroups", "Group")">Тендерні категорії</a></li>
+                                        <li><a href="@Url.Action("AddTenderItem", "Tender")">Додати файл</a></li>
+                                        <li><a href="@Url.Action("TenderLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("EditInformation", "Editor")">Інформація</a></li>
+                                <li><a href="@Url.Action("EditHistory", "Editor")">Історія лікарні</a></li>
+                            </ul>
+                        }
+                        @if (User.IsInRole("Editors"))
+                        {
+                            <hr />
+                            <ul>
+                                <li>
+                                    Новини
+                                    <ul>
+                                        <li><a href="@Url.Action("AddNews", "Editor")">Додати новину</a></li>
+                                        <li><a href="@Url.Action("NewsLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    Статті
+                                    <ul>
+                                        <li><a href="@Url.Action("ArticleGroups", "Group")">Категорії статей</a></li>
+                                        <li><a href="@Url.Action("AddArticle", "Editor")">Додати статтю</a></li>
+                                        <li><a href="@Url.Action("ArticleLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="@Url.Action("EditInformation", "Editor")">Інформація</a></li>
+                                <li><a href="@Url.Action("EditHistory", "Editor")">Історія лікарні</a></li>
+                            </ul>
+                        }
+                        @if (User.IsInRole("TenderGroup"))
+                        {
+                            <hr />
+                            <ul>
+                                <li>
+                                    Державні закупівлі
+                                    <ul>
+                                        <li><a href="@Url.Action("TenderGroups", "Group")">Тендерні категорії</a></li>
+                                        <li><a href="@Url.Action("AddTenderItem", "Tender")">Додати файл</a></li>
+                                        <li><a href="@Url.Action("TenderLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                        @if (User.IsInRole("Doctors"))
+                        {
+                            <hr />
+                            <ul>
+                                <li>
+                                    Статті
+                                    <ul>
+                                        <li><a href="@Url.Action("ArticleGroups", "Group")">Категорії статей</a></li>
+                                        <li><a href="@Url.Action("AddArticle", "Editor")">Додати статтю</a></li>
+                                        <li><a href="@Url.Action("ArticleLog", "Log")">Журнал подій</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        }
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="navyPathHeader">Вхід до системи</div>
+                <div class="navyPathContent">
+                    @using (Html.BeginForm(Html.BeginForm("Login", "Account", new { redirectUrl = currentUrl }, FormMethod.Post, new { @class = "smart-green" })))
+                    {
+                        <label>
+                            <span>Логін:</span>
+                            <input type="text" name="login" placeholder="Введіть ваш логін" />
+                        </label>
+                        <label>
+                            <span>Пароль:</span>
+                            <input type="password" name="password" placeholder="Введіть ваш пароль" />
+                        </label>
+                        <label class="buttonWrapper">
+                            <button type="submit">Увійти</button><br /><br />
+                        </label>
+                        <label class="buttonWrapper">
+                            <a href="@Url.Action("Register", "Account")">РЕЄСТРАЦІЯ НА ПОРТАЛІ</a>
+                        </label>
+                    }
+                </div>
+            }
+            @if ((bannersList != null) && (bannersList.Count() != 0))
+            {
+                <div class="navyPathHeader">Корисні ресурси</div>
+                <div class="navyPathContent" style="text-align: center;">
+                    @foreach (var banner in bannersList)
+                    {
+                        <a class="advLink" href="@banner.DestUrl" title="@banner.Name">
+                            <img src="@Url.Content(MasterController.UPLOADFILE_DIR + @"\" + banner.ImgName)" class="advItem" />
+                        </a><br />
+                    }
+                </div>
+            }
+        </div>
+
+        <!-- Content block -->
+        <div class="siteContentPath">
+            <h1 class="contentHeader">@ViewBag.Title</h1>
+
+            <!-- Content starts here -->
+            @RenderBody()
+
+            <!-- Content ends here -->
+        </div>
+
+        <!-- Footer block -->
+        <div class="siteFooterPath">
+            <b>© 2015-@(DateTime.Now.Year) КЗ "Запорізька центральна районна лікарня" ЗРР.<br />
+            Розробник: <a class="devLink" href="@Url.Action("Developer", "Home")">Гудим М.Ю.</a></b>
+        </div>
+    </div>
+
+</body>
+
+</html>

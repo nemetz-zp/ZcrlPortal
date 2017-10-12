@@ -1,0 +1,78 @@
+﻿@using ZcrlPortal.Models
+@model RegistrationRequest
+@{
+    ViewBag.Title = "Реєстрація на порталі";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+@if((ViewBag.RegistrationSuccess != null)  && ViewBag.RegistrationSuccess)
+{
+    <div class="successMessage">Ваша заявка на реєстрацію успішно створена! Протягом доби адміністрація порталу активує ваш аккаунт.</div>
+}
+else
+{
+    using(Html.BeginForm("Register", "Account", FormMethod.Post, new { @class="smart-green" }))
+    {
+        <div class="registration">
+	        <h2>Заявка на реєстрацію</h2>
+            @if(ViewBag.RegistrationError != null)
+            {
+                <div class="errorMessage">@ViewBag.RegistrationError</div>
+            }
+	        <table>
+		        <tr>
+			        <th>Логин: </th><td>@Html.TextBoxFor(k => k.Login, new { placeholder = "Введіть ваш логін" })</td>
+		        </tr>
+		        <tr>
+			        <th>Пароль: </th><td>@Html.TextBoxFor(k => k.Password, new { type = "password", placeholder = "Введіть ваш пароль" })</td>
+		        </tr>
+		        <tr>
+			        <th>Підтвердіть пароль: </th><td>@Html.TextBoxFor(k => k.ConfirmPassword, new { type = "password", placeholder = "Підтвердіть ваш пароль" })</td>
+		        </tr>
+		        <tr>
+			        <td colspan="2"><br /><br /></td>
+		        </tr>
+		        <tr>
+			        <th>Прізвище: </th><td>@Html.TextBoxFor(k => k.LastName, new { placeholder = "Ваше прізвище" })</td>
+		        </tr>
+		        <tr>
+			        <th>Ім'я: </th><td>@Html.TextBoxFor(k => k.FirstName, new { placeholder = "Ваше ім'я" })</td>
+		        </tr>
+		        <tr>
+			        <th>По-батькові: </th><td>@Html.TextBoxFor(k => k.MiddleName, new { placeholder = "Ім'я по-батькові" })</td>
+		        </tr>
+                <tr>
+                    <th>Стать: </th>
+                    <td>@Html.RadioButtonFor(k => k.Sex, UserSex.Male) Чоловіча  @Html.RadioButtonFor(k => k.Sex, UserSex.Female) Жіноча</td>
+                </tr>
+		        <tr>
+			        <td colspan="2"><br /><br /></td>
+		        </tr>
+		        <tr>
+			        <th>Посада: </th><td>@Html.TextBoxFor(k => k.JobTitle, new { placeholder = "Ваша посада" })</td>
+		        </tr>
+		        <tr>
+			        <th>Робочий телефон: </th><td>@Html.TextBoxFor(k => k.TelephoneNumber, new { placeholder = "Ваша телефон" })</td>
+		        </tr>
+		        <tr>
+			        <th>Кабінет: </th><td>@Html.TextBoxFor(k => k.WorkLocation, new { placeholder = "Вкажіть де Вас можна знайти" })</td>
+		        </tr>
+		        <tr>
+			        <th>Email: </th><td>@Html.TextBoxFor(k => k.Email, new { placeholder = "Ваш Email" })</td>
+		        </tr>
+		        <tr>
+			        <th>Освіта: </th><td>@Html.TextBoxFor(k => k.Education, new { placeholder = "Що Ви закінчили?" })</td>
+		        </tr>
+		        <tr>
+			        <td style="text-align: center;" colspan="2"><button type="submit">Відправити заявку</button></td>
+		        </tr>
+	        </table>
+        </div>
+    }
+}
+
+<script>
+    jQuery(function ($) {
+        $("#TelephoneNumber").mask("(061) 999-99-99");
+    });
+</script>

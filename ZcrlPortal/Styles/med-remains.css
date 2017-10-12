@@ -1,0 +1,44 @@
+﻿.lowHeader
+{
+    text-align: center;
+    color: #c1960d;
+}
+
+.medTable
+{
+    width: 100% !important;
+}
+
+.medTable tr td
+{
+    padding-left: 8px;
+    padding-right: 8px;
+} 
+
+.medGroupNameRow
+{
+    font-style: italic;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.medContentRow
+{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.medContentRow td:nth-child(2)
+{
+    text-align: left;
+}
+
+.medContentRow td:nth-child(3)
+{
+    text-align: right;
+}
+
+.medContentRow td:nth-child(4)
+{
+    text-align: left;
+}

@@ -1,0 +1,20 @@
+﻿@using ZcrlPortal.Models
+@model StaticChapter
+@{
+    ViewBag.Title = "Інформація";
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="newsContainer">
+    <div class="newsContent">
+        @if (string.IsNullOrWhiteSpace(Model.Content))
+        {
+            @:Данний розділ порожній
+        }
+        else
+        {
+            @MvcHtmlString.Create(Model.Content)
+        }
+        <br /><br />
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model TenderItem
+@{
+    List<ZcrlPortal.ViewModels.SelectListItem> yearsList = ViewBag.YearsList;
+    List<ZcrlPortal.ViewModels.SelectListItem> groupsList = ViewBag.GroupsList;
+    
+    CrudMode mode = ViewBag.Mode;
+    string actionName = null;
+    switch (mode)
+    {
+        case CrudMode.Add:
+            {
+                Model.RelatedFile = new UploadFile();
+                ViewBag.Title = "Додати новий файл";
+                actionName = "AddTenderItem";
+                break;
+            }
+        case CrudMode.Edit:
+            {
+                ViewBag.Title = "Редагування файл";
+                actionName = "EditTenderItem";
+                break;
+            }
+    }
+    Model.RelatedFile.UserProfileId = (int)Profile["Id"];
+    
+    Layout = "~/Views/Shared/_main.cshtml";
+
+    string errorMessage = null;
+    if (TempData["Error"] != null && !string.IsNullOrWhiteSpace(((string)TempData["Error"])))
+    {
+        errorMessage = (string)TempData["Error"];
+    }
+}
+
+<div class="editProfileContainer">
+    @if (errorMessage != null)
+    {
+        <div class="errorMessage">@errorMessage</div>
+    }
+
+    @using (Html.BeginForm(actionName, "Tender", FormMethod.Post, new { @class = "smart-green", enctype = "multipart/form-data" }))
+    {
+        if (mode == CrudMode.Edit)
+        {
+            Html.HiddenFor(m => m.Id);
+        }
+        
+        @Html.HiddenFor(m => m.RelatedFile.UserProfileId)
+        
+        <table>
+            <tr>
+                <th>Рік закупівлі:</th>
+                <td>@Html.DropDownListFor(m => m.TenderYearId, new SelectList(yearsList, "Value", "DisplayName"))</td>
+            </tr>
+            <tr>
+                <th>Тип файлу:</th>
+                <td>@Html.DropDownListFor(m => m.DataGroupId, new SelectList(groupsList, "Value", "DisplayName"))</td>
+            </tr>
+            <tr>
+                <th>Назва файлу:</th>
+                <td>@Html.TextBoxFor(m => m.RelatedFile.DisplayName, new { placeholder = "Введіть назву файлу" })</td>
+            </tr>
+            <tr>
+                <th>Виберіть файл:</th>
+                <td><input type="text" class="ufName" readonly="readonly" id="ufName" /> <div class="uploadFileContainer"><span>Вибрати файл</span><input name="attachedFile" id="attachedFile" type="file" onchange="GetUploadFileName(this)" /></div></td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">
+                        @if (mode == CrudMode.Edit)
+                        {
+                            @:Змінити данні
+                        }
+                        else
+                        {
+                            @:Додати файл
+                        }
+                    </button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+
+

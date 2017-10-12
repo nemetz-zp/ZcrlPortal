@@ -1,0 +1,119 @@
+﻿@using ZcrlPortal.Controllers
+@using ZcrlPortal.Models
+@model Publication
+@{
+    List<DataGroup> articleThemes = ViewBag.Themes;
+        
+    string actionName = null;
+    CrudMode mode = ViewBag.Mode;
+     
+    switch(mode)
+    {
+        case CrudMode.Add:
+            {
+                actionName = "Add";
+                break;
+            }
+        case CrudMode.Edit:
+            {
+                actionName = "Edit";
+                break;
+            }
+    }
+    
+    Layout = "~/Views/Shared/_main.cshtml";
+}
+
+<div class="editProfileContainer">
+    @if (!string.IsNullOrWhiteSpace((string)TempData["Error"]))
+    {
+        <div class="errorMessage">@TempData["Error"]</div>
+    }
+    @if (!string.IsNullOrWhiteSpace((string)TempData["SuccessMessage"]))
+    {
+        <div class="successMessage">@TempData["SuccessMessage"]</div>
+    }
+
+    @using (Html.BeginForm(actionName, "Editor", FormMethod.Post, new { @class = "smart-green", enctype = "multipart/form-data" }))
+    {
+        @Html.HiddenFor(m => m.UserProfileId)
+        
+        if (mode == CrudMode.Edit)
+        {
+            Html.HiddenFor(m => m.Id);
+        }
+
+        @Html.HiddenFor(m => m.InformationType)
+
+        <table style="width: 100%;">
+            <tr>
+                <th>Заголовок:</th>
+                <td>@Html.TextBoxFor(m => m.Title)</td>
+            </tr>
+            <tr>
+                <th>Картинка для заголовку:</th>
+                <td>
+                    <input type="text" class="ufName" readonly="readonly" id="ufName" /> <div class="uploadFileContainer"><span>Вибрати файл</span><input name="attachedFile" id="attachedFile" type="file" onchange="GetUploadFileName(this)" /></div> 
+                    @if(!string.IsNullOrWhiteSpace(Model.TitleImage))
+                    {
+                       <a href="@Url.Action("DeleteTitleImg", "Editor", new { imgId = Model.Id })">Видалити картинку</a>
+                    }
+                </td>
+            </tr>
+            <tr>
+                <th>Стислий зміст:</th>
+                <td>@Html.TextAreaFor(m => m.Summary, new { style = "height:60px; width:350px;"})</td>
+            </tr>
+            <tr>
+            @if(Model.InformationType == PublicationType.Article)
+            {
+                <tr>
+                    <th>Теми статті:</th>
+                    <td>@foreach (var theme in articleThemes)
+                        {
+                            <input type="checkbox" name="selectedThemes" value="@theme.Id" @(Model.Themes.Contains(theme) ? "checked=\"checked\"" : "")> @theme.Name <br />
+                        }
+                    </td>
+                </tr>   
+            }
+            <tr>
+                <td colspan="2"><br /></td>
+            </tr>
+            <tr>
+                <td colspan="2">@Html.TextAreaFor(m => m.Content)</td>
+            </tr>
+            <tr>
+                <th colspan="2" style="text-align: center;">
+                    <button type="submit">
+                        @if (mode == CrudMode.Edit)
+                        {
+                            @:Змінити данні
+                        }
+                        else
+                        {
+                            @:Створити
+                        }
+                    </button>
+                </th>
+            </tr>
+        </table>
+    }
+</div>
+
+<script>
+    CKEDITOR.replace('Content', {
+         toolbar: [
+         { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'] },
+         { name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'Maximize'] },
+         '/',
+         { name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-','RemoveFormat'] },
+         { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'], items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+         { name: 'links', items: ['Link', 'Image', 'Anchor', 'Table', 'TextColor'] },
+         { name: 'styles', items: ['Format'] },
+         ],
+        filebrowserImageUploadUrl: '@Url.Action("UploadImage", "Editor")',
+        format_tags: 'p;h2',
+        image2_alignClasses: ['image-left', 'image-center', 'image-right'],
+    });
+</script>
+

@@ -1,0 +1,196 @@
+﻿@using ZcrlPortal.Models
+@using ZcrlPortal.Controllers
+@model ZcrlPortal.Models.UserProfile
+@{
+    int? editableProfileId = null;
+
+    if(ViewBag.ProfileId != null)
+    {
+        editableProfileId = ViewBag.ProfileId;
+    }
+    
+    ViewBag.Title = "Редагування профіля";
+    Layout = "~/Views/Shared/_main.cshtml";
+    bool isSuccess = false;
+    string errorMessage = null;
+    if ((ViewBag.editProfileSuccess != null) && ViewBag.editProfileSuccess)
+    {
+        isSuccess = true;
+    }
+    else if (TempData["Success"] != null)
+    {
+        isSuccess = true;
+    }
+
+    if (ViewBag.editProfilerError != null)
+    {
+        errorMessage = ViewBag.editProfilerError;
+    }
+    else if (TempData["Error"] != null)
+    {
+        errorMessage = TempData["Error"].ToString();
+    }
+}
+
+<div class="editProfileContainer">
+    @if (isSuccess)
+    {
+        <div class="successMessage">Данні профіля успішно змінені!</div>
+    }
+    @if (errorMessage != null)
+    {
+        <div class="errorMessage">@errorMessage</div>
+    }
+
+
+    <div style="clear:both"></div>
+    <div class="userData">
+        @using (Html.BeginForm("EditProfile", "UserProfile", FormMethod.Post, new { @class = "smart-green", enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <table>
+                @if (User.IsInRole("Administrators"))
+                {
+                    <tr>
+                        <th>Логін: </th>
+                        <td>@Html.TextBoxFor(m => m.RelatedUser.Login, new { placeholder = "Введіть логін" })</td>
+                    </tr>
+                }
+                <tr>
+                    <th>Прізвище: </th>
+                    <td>@Html.TextBoxFor(m => m.LastName, new { placeholder = "Введіть прізвище" })</td>
+                </tr>
+                <tr>
+                    <th>Ім'я: </th>
+                    <td>@Html.TextBoxFor(m => m.FirstName, new { placeholder = "Введіть ім'я" })</td>
+                </tr>
+                <tr>
+                    <th>Ім'я по-батькові: </th>
+                    <td>@Html.TextBoxFor(m => m.MiddleName, new { placeholder = "Введіть ім'я по-батькові" })</td>
+                </tr>
+                <tr>
+                    <th>Стать: </th>
+                    <td>@Html.RadioButtonFor(m => m.Sex, UserSex.Male) Чоловіча  @Html.RadioButtonFor(k => k.Sex, UserSex.Female) Жіноча</td>
+                </tr>
+                <tr>
+                    <th colspan="2"><br /></th>
+                </tr>
+                <tr>
+                    <th>Пароль: </th>
+                    <td><a href="@Url.Action("ChangePassword", "UserProfile", new { id = ViewBag.ProfileId })">Змінити пароль</a></td>
+                </tr>
+                <tr>
+                    <th colspan="2"><br /></th>
+                </tr>
+                <tr>
+                    <th>Назва посади: </th>
+                    <td>@Html.TextBoxFor(m => m.JobTitle, new { placeholder = "Введіть посаду" })</td>
+                </tr>
+                <tr>
+                    <th>Робочий телефон: </th>
+                    <td>@Html.TextBoxFor(m => m.TelephoneNumber, new { placeholder = "Введіть номер телефону" })</td>
+                </tr>
+                <tr>
+                    <th>Номер кабінету: </th>
+                    <td>@Html.TextBoxFor(m => m.WorkLocation, new { placeholder = "Вкажіть де Вас можна знайти" })</td>
+                </tr>
+                <tr>
+                    <th>Фотографія: </th>
+                    <td><input type="text" class="ufName" readonly="readonly" id="ufName" /> <div class="uploadFileContainer"><span>Вибрати файл</span><input name="photoFile" id="photoFile" type="file" onchange="GetUploadFileName(this)" /></div></td>
+                </tr>
+                <tr>
+                    <th>Освіта: </th>
+                    <td>@Html.TextBoxFor(m => m.Education, new { placeholder = "Що ви закінчили?" })</td>
+                </tr>
+                <tr>
+                    <th>Email: </th>
+                    <td>@Html.TextBoxFor(m => m.Email, new { placeholder = "Введіть Email" })</td>
+                </tr>
+                <tr>
+                    <th>Веб-сайт: </th>
+                    <td>@Html.TextBoxFor(m => m.SiteAddress, new { placeholder = "Адреса веб-сайту" })</td>
+                </tr>
+                @if (User.IsInRole("Administrators"))
+                {
+                    <tr>
+                        <th>Права користувача: </th>
+                        <td>@Html.DropDownListFor(m => m.RelatedUser.RoleId, new SelectList(ViewBag.RoleList, "Value", "DisplayName"))</td>
+                    </tr>
+                    <tr>
+                        <th>Группа користувача: </th>
+                        <td>@Html.DropDownListFor(m => m.DataGroupId, new SelectList(ViewBag.DepartmentList, "Value", "DisplayName"))</td>
+                    </tr>
+                    <tr>
+                        <th>Відобразити користувача: </th>
+                        <td>@Html.CheckBoxFor(m => m.IsPublicated) Так</td>
+                    </tr>
+                    <tr>
+                        <th>Пріорітет відображення: </th>
+                        <td>@Html.TextBoxFor(m => m.ViewPriority, new { placeholder = "Номер порядку відображення в группі" })</td>
+                    </tr>
+                }
+                <tr>
+                    <th colspan="2" class="buttonRow"><button type="submit">Змінити данні</button></th>
+                </tr>
+            </table>
+        }
+
+    </div>
+
+    <div class="userPhoto">
+        @if (!string.IsNullOrWhiteSpace(Model.PhotoFileName))
+        {
+            <img src="@Url.Content(MasterController.UPLOADPHOTO_DIR + @"\" + Model.PhotoFileName)" />
+        }
+        else
+        {
+            if (Model.Sex == UserSex.Male)
+            {
+                <img src="@Url.Content(@"~\UserPhotos\non_m.png")" />
+            }
+            else
+            {
+                <img src="@Url.Content(@"~\UserPhotos\non_f.png")" />
+            }
+        }
+        <a href="@Url.Action("DeletePhoto", "UserProfile", new { id = editableProfileId })" onclick="return confirm('Вы впевнені, що хочете видалити фото?')">Видалити фото</a>
+    </div>
+
+    <div style="clear:both"></div>
+
+    <div class="userBio">
+        @using (Html.BeginForm("EditUserBiography", "UserProfile", FormMethod.Post))
+        {
+            @Html.HiddenFor(m => m.Id)
+            <h1>Біографія</h1>
+            @Html.TextAreaFor(m => m.AboutMe)
+            <h1><button type="submit">Змінити біографію</button></h1>
+        }
+    </div>
+
+    <br /><br />
+
+</div>
+
+<script>
+    jQuery(function ($) {
+        $("#TelephoneNumber").mask("(061) 999-99-99");
+    });
+</script>
+
+<script>
+    CKEDITOR.replace('AboutMe', {
+         toolbar: [
+         { name: 'clipboard', groups: ['clipboard', 'undo'], items: ['Cut', 'Copy', 'Paste', '-', 'Undo', 'Redo'] },
+         { name: 'editing', groups: ['find', 'selection', 'spellchecker'], items: ['Find', 'Replace', '-', 'Maximize'] },
+         '/',
+         { name: 'basicstyles', groups: ['basicstyles', 'cleanup'], items: ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-','RemoveFormat'] },
+         { name: 'paragraph', groups: ['list', 'indent', 'blocks', 'align', 'bidi'], items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+         { name: 'links', items: ['Link', 'Image', 'Anchor', 'Table', 'TextColor'] },
+         { name: 'styles', items: ['Format'] },
+         ],
+        filebrowserImageUploadUrl: '@Url.Action("UploadImage", "Editor")',
+        format_tags: 'p;h2',
+        image2_alignClasses: ['image-left', 'image-center', 'image-right'],
+    });
+</script>

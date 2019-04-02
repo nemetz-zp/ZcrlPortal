@@ -3,3 +3,4 @@ ZcrlPortal/obj/*
 packages/*
 ZcrlPortal/Web.Debug.config
 ZcrlPortal/Web.Release.config
+ZcrlPortal/Web.config

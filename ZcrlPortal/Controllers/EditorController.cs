@@ -140,7 +140,20 @@ namespace ZcrlPortal.Controllers
                 return View("AddEditItem", newPublicationItem);
             }
 
-            using(zcrlDbContext = new ZcrlContext())
+            // Получаем максимально допустимую длинну заголовка новости
+            System.ComponentModel.DataAnnotations.MaxLengthAttribute[] maxLengthAttribs = Attribute.GetCustomAttributes(typeof(Publication).GetProperty("Title"),
+                typeof(System.ComponentModel.DataAnnotations.MaxLengthAttribute)) as System.ComponentModel.DataAnnotations.MaxLengthAttribute[];
+            int maxTitleLength = maxLengthAttribs.Length > 0 ? maxLengthAttribs.Last().Length : 0;
+
+            if ((maxTitleLength > 0) && (newPublicationItem.Title.Length > maxTitleLength))
+            {
+                TempData["Error"] = "Максимально допустима довжина заголовку " + maxTitleLength + " символів";
+                ViewBag.Mode = CrudMode.Add;
+                ViewBag.Title = getTitleForPage(newPublicationItem.InformationType, CrudMode.Add);
+                return View("AddEditItem", newPublicationItem);
+            }
+
+            using (zcrlDbContext = new ZcrlContext())
             {
                 if(attachedFile != null)
                 {
@@ -154,7 +167,7 @@ namespace ZcrlPortal.Controllers
                     }
                     catch
                     {
-                        TempData["Error"] = "Помилка завантеження зображення";
+                        TempData["Error"] = "Помилка завантаження зображення";
                         ViewBag.Mode = CrudMode.Add;
                         ViewBag.Title = getTitleForPage(newPublicationItem.InformationType, CrudMode.Add);
                         return View("AddEditItem", newPublicationItem);

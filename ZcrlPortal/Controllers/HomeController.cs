@@ -119,7 +119,7 @@ namespace ZcrlPortal.Controllers
                     return RedirectToAction("NotFound", "Error");
                 }
 
-                return View("PublicationsList", portalArticles.Skip((page.Value * 10)).Take(10));
+                return View("PublicationsList", portalArticles.Skip(((page.Value - 1) * 10)).Take(10).ToList());
             }
         }
 

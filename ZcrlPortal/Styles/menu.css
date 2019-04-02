@@ -64,7 +64,7 @@
     padding: 10px;
     text-transform: none;
     white-space: nowrap;
-    width: 130px;
+    min-width: 130px;
 }
 :first-child + html #menu ul a {
     height: 10px;

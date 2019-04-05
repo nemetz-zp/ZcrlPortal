@@ -43,6 +43,7 @@ namespace ZcrlPortal.Controllers
                 ViewBag.page = page.Value;
 
                 var portalNews = (from n in zcrlDbContext.PortalPublications.Include("Author")
+                                  where (n.InformationType == Models.PublicationType.News)
                                   orderby n.PublicationDate descending
                                   select n).ToList();
 
